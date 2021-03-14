@@ -1,0 +1,101 @@
+/*body {*/
+/*    --nav-width: 200px;*/
+/*    margin: 0 0 0 var(--nav-width);*/
+/*    font-family: 'Quicksand', sans-serif;*/
+/*    font-size: 18px;*/
+/*}*/
+
+/*!* Creates a full-height, left-mounted navigation menu *!*/
+/*.nav {*/
+/*    position: fixed;*/
+/*    top: 0;*/
+/*    left: 0;*/
+/*    width: var(--nav-width);*/
+/*    height: 100vh;*/
+/*    background: #222222;*/
+/*}*/
+
+/*!* Making these look fantastic *!*/
+/*.nav__link {*/
+/*    display: block;*/
+/*    padding: 12px 18px;*/
+/*    text-decoration: none;*/
+/*    color: #eeeeee;*/
+/*    font-weight: 500;*/
+/*}*/
+
+/*.nav__link:hover {*/
+/*    background: rgba(255, 255, 255, 0.05);*/
+/*}*/
+
+/*#app {*/
+/*    margin: 2em;*/
+/*    line-height: 1.5;*/
+/*    font-weight: 500;*/
+/*}*/
+
+/* The 'dcode' green always needs to make an appearance */
+a {
+    color: #009579;
+}
+
+
+
+
+
+
+
+
+
+
+
+ol {
+    padding-left: 0px;
+}
+body {
+    background-color: #eee;
+    font-family: sans-serif;
+    font-size: 26px;
+    padding: 0px;
+}
+
+.wrapper {
+    width: 800px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 10px;
+}
+
+.main_list_item{
+    margin: 20px;
+    background-color: cornsilk;
+}
+
+.main_list_title_column{
+    width: 400px;
+}
+.main_list_status_column{
+    width: 150px;
+}
+.main_list_date_column{
+    width: 150px;
+}
+.edit_note_list_item{
+    margin: 20px;
+    list-style: none;
+}
+
+header, footer {
+    background-color: ghostwhite;
+    padding: 20px;
+}
+
+/* main {
+    padding: 20px;
+} */
+
+.layout-sidebar {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 2fr 1fr;
+}
