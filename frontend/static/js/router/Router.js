@@ -23,7 +23,7 @@ export default class {
         const potentialMatches = this.routes.map(route => {
             return {
                 route: route,
-                result: location.pathname.match(urlutils.pathToRegex(route.path))
+                result: location.pathname.match(urlutils.urlToRegex(route.path))
             };
         });
 
@@ -41,8 +41,9 @@ export default class {
             };
         }
 
-        let view = new match.route.view(match.route.path, {
-            urlParams: urlutils.getParams(match),
+        let view = new match.route.view({
+            url: location.pathname,
+            urlParams: urlutils.parseParams(match.route.path, location.pathname),
             query: urlutils.parseQuery(location.search)
         })
 

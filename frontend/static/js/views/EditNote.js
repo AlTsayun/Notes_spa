@@ -22,7 +22,7 @@ export default class extends AbstractView {
             .then((response) => {
                 console.log(response.status)
                 if (response.status === 404){
-                    router.navigateTo('/404' + urlutils.formQueryParametersString({url: this.GET_NOTE_URL}))
+                    router.navigateTo('/404' + urlutils.formQueryString({url: this.params.url}))
                 }
                 return response.json()
             })

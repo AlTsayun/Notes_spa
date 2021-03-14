@@ -1,13 +1,13 @@
 export default class {
     params
-    url
-    constructor(url, params) {
+    constructor(params) {
         this.params = params
-        this.url = url
+        console.log(params)
+        this.params.url
     }
 
     getUrl(){
-        return this.url
+        return this.params.url
     }
 
     setTitle(title) {

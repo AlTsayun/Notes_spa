@@ -1,14 +1,19 @@
-export function pathToRegex(path) {
+export function urlToRegex(path) {
     return new RegExp("^" + path.replace(/\//g, "\\/").replace(/:\w+/g, "(.+)") + "$")
 }
 
-export function getParams(match) {
-    const values = match.result.slice(1)
-    const keys = Array.from(match.route.path.matchAll(/:(\w+)/g)).map(result => result[1])
-
+export function parseParams(templateUrl, actualUrl) {
+    const values = actualUrl.match(urlToRegex(templateUrl)).slice(1)
+    const keys = Array.from(templateUrl.matchAll(/:(\w+)/g)).map(result => result[1])
     return Object.fromEntries(keys.map((key, i) => {
         return [key, values[i]]
     }))
+}
+
+export function formParamsUrl(templateUrl, params){
+    return templateUrl.replace(/:(\w+)/g, (key)=>{
+        return params[key.substr(1, key.length)]
+    })
 }
 
 export function parseQuery(queryString) {
@@ -21,7 +26,7 @@ export function parseQuery(queryString) {
     return query
 }
 
-export function formQueryParametersString(params){
+export function formQueryString(params){
     let qs = ""
 
     for(let key in params) {

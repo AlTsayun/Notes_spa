@@ -102,7 +102,7 @@ export default class extends AbstractView {
             e.preventDefault()
             const formData = new FormData(document.querySelector('form'))
 
-            let queryParametersString = urlutils.formQueryParametersString(Object.fromEntries(formData.entries()))
+            let queryParametersString = urlutils.formQueryString(Object.fromEntries(formData.entries()))
             router.navigateTo(form.action + queryParametersString)
         });
     }
