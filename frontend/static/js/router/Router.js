@@ -41,7 +41,7 @@ export default class {
             };
         }
 
-        let view = new match.route.view({
+        let view = new match.route.view(match.route.path, {
             urlParams: urlutils.getParams(match),
             query: urlutils.parseQuery(location.search)
         })
