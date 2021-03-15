@@ -1,23 +1,25 @@
 export default class {
     params
+    redirectUrl
+    title
     constructor(params) {
         this.params = params
-        console.log(params)
-        this.params.url
+        console.log(`Created view recieved params:`, params)
+        this.redirectUrl = null
     }
 
-    getUrl(){
-        return this.params.url
+    async getTitle(){
+        return this.title
     }
 
-    setTitle(title) {
-        document.title = title
+    async configureView(router){
+
     }
 
-    async getHtml() {
+    getHtml() {
         return ""
     }
 
-    async configureDocument(document, router){
+    async configureDocument(document){
     }
 }

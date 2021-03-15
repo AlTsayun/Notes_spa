@@ -39,7 +39,6 @@ routes.get('/about', (req, res) => {
 
 routes.post('/notes', (req, res) =>{
 
-
     const o_date = new Intl.DateTimeFormat;
     const f_date = (m_ca, m_it) => Object({...m_ca, [m_it.type]: m_it.value});
     const m_date = o_date.formatToParts().reduce(f_date, {});
@@ -59,7 +58,6 @@ routes.post('/notes', (req, res) =>{
 
 routes.get('/notes/:noteId', (req, res) =>{
     let note = notesHandler.getNote(req.params.noteId)
-    console.log(note)
     if (note !== undefined){
         res.status(200).json(note)
     } else {
@@ -83,10 +81,14 @@ routes.put('/notes/:noteId', urlEncodedParser, (req, res) =>{
         files: newFiles,
     }
     notesHandler.updateNote(note)
-    res.redirect('/')
+    res.status(201).json(note)
 })
 
 routes.delete('/notes/:noteId', urlEncodedParser, (req, res) =>{
-    notesHandler.removeNote(req.params.noteId)
+    if (notesHandler.removeNote(req.params.noteId)){
+        res.status(200).send()
+    } else {
+        res.status(404).send()
+    }
 })
 module.exports = routes

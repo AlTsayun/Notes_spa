@@ -6,7 +6,7 @@ module.exports = class NotesHandler{
         this.freeIdentifier = 0;
     }
     addNote(note){
-        note.id = this.freeIdentifier
+        note.id = this.freeIdentifier.toString()
         this.idToNote.set(note.id, note)
         this.freeIdentifier++
         console.log('NotesHandler added note' + note.toString())
@@ -15,6 +15,7 @@ module.exports = class NotesHandler{
     }
 
     removeNote(noteId){
+        // console.log(this.idToNote.delete(noteId))
         return this.idToNote.delete(noteId)
     }
 

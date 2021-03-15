@@ -3,7 +3,7 @@ export function urlToRegex(path) {
 }
 
 export function parseParams(templateUrl, actualUrl) {
-    const values = actualUrl.match(urlToRegex(templateUrl)).slice(1)
+    const values = actualUrl.match(urlToRegex(templateUrl))?.slice(1)
     const keys = Array.from(templateUrl.matchAll(/:(\w+)/g)).map(result => result[1])
     return Object.fromEntries(keys.map((key, i) => {
         return [key, values[i]]

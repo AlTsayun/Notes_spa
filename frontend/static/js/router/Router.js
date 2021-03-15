@@ -3,6 +3,7 @@ import Notesboard from "../views/Notesboard.js";
 import CreateNote from "../views/CreateNote.js";
 import EditNote from "../views/EditNote.js";
 import PageNotFound from "../views/PageNotFound.js";
+import DeleteNote from "../views/DeleteNote.js";
 
 export default class {
 
@@ -11,6 +12,7 @@ export default class {
         {path: "/", view: Notesboard},
         {path: "/create_note", view: CreateNote},
         {path: "/edit_note/:id", view: EditNote},
+        {path: "/delete_note/:id", view: DeleteNote},
         {path: "/about"},
         {path: "/404", view: PageNotFound},
     ]) {
@@ -27,38 +29,49 @@ export default class {
             };
         });
 
-        console.log(potentialMatches)
+        console.log(`Potential matches:`, potentialMatches)
 
         let match = potentialMatches.find(potentialMatch => potentialMatch.result !== null);
+        console.log(`Selected match:`, match)
+
 
         /* Route not found - return first route OR a specific "not-found" route */
         if (!match) {
-            match = {
-                route: this.routes.find( (element, index, array) =>{
-                    return element.path === "/404"
-                }),
-                result: [location.pathname]
-            };
+            console.log(`No match found`)
+            this.navigateTo(`/404${urlutils.formQueryString({notFoundUrl: location.pathname})}`)
         }
 
-        let view = new match.route.view({
-            url: location.pathname,
-            urlParams: urlutils.parseParams(match.route.path, location.pathname),
-            query: urlutils.parseQuery(location.search)
-        })
 
-        if (view !== undefined) {
+        if (match.route.view !== undefined) {
+            let view = new match.route.view({
+                url: location.pathname,
+                urlParams: urlutils.parseParams(match.route.path, location.pathname),
+                queryParams: urlutils.parseQuery(location.search),
+                router: this
+            })
 
-            document.querySelector("#app").innerHTML = await view.getHtml()
-            await view.configureDocument(document, this)
+            await view.configureView(this)
+            console.log(`View is configured`, view)
+
+            if (view.redirectUrl !== null){
+                this.navigateTo(view.redirectUrl)
+            } else {
+
+                document.title = await view.getTitle()
+
+                document.querySelector("#app").innerHTML = view.getHtml()
+
+                await view.configureDocument(document, this)
+            }
 
         } else {
-            document.querySelector("#app").innerHTML = "page not found!"
+            console.log(`View for`, match.route.path, `is not defined!`)
+            document.querySelector("#app").innerHTML = ""
         }
     }
 
     navigateTo(url) {
-        console.log(url)
+        console.log(`Navigating to`, url)
         history.pushState(null, null, url);
         this.route();
     };

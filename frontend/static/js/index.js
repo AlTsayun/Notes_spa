@@ -7,11 +7,10 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.addEventListener("click", e => {
         if (e.target.matches("[data-link]")) {
             e.preventDefault();
-            console.log(e.target.action)
             if (e.target.href !== undefined){
                 router.navigateTo(e.target.href);
             } else {
-                console.log("no href to navigate to")
+                console.log("No href attribute to navigate to!")
             }
         }
     });

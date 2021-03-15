@@ -1,21 +1,18 @@
-import AbstractView from "./AbstractView.js";
+import AbstractView from "./AbstractView.js"
 import * as urlutils from "../urlutils/urlutils.js"
 export default class extends AbstractView {
 
     constructor(params) {
-        super(params);
-        this.setTitle("Error 404!");
+        super(params)
+        this.title = "Error 404!"
     }
 
 
-    async getHtml() {
+    getHtml() {
         return `
 Error 404! <br\>
-Page not found
+Page  ${this.params.queryParams.notFoundUrl === undefined ? "": this.params.queryParams.notFoundUrl} not found
 `
     }
-
-    async configureDocument(document, router){}
-
 
 }
