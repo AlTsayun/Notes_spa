@@ -10,7 +10,7 @@ export default class extends AbstractView {
     }
 
     async configureView(router){
-        await executeJsonFetch(this.POST_NOTE_URL, 'POST', this, note => {
+        await executeJsonFetch(this.POST_NOTE_URL, 'POST', this, null, note => {
             console.log(`Created note:`, note)
             this.redirectUrl = `/edit_note/${note.id}`
         })

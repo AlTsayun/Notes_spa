@@ -1,5 +1,5 @@
 import AbstractView from "./AbstractView.js"
-import {executeJsonFetch} from "../fetchutils/fetchutils.js";
+import {executeNoResponseFetch} from "../fetchutils/fetchutils.js";
 export default class extends AbstractView {
 
     DELETE_NOTE_URL = '/api/notes'
@@ -11,12 +11,8 @@ export default class extends AbstractView {
     }
 
     async configureView(router){
-        console.log("not yet")
-        await executeJsonFetch(this.DELETE_NOTE_URL, 'DELETE', this, emptyObject => {
-            console.log(emptyObject)
-            this.redirectUrl = `/`
-        })
-        console.log("done")
+        await executeNoResponseFetch(this.DELETE_NOTE_URL, 'DELETE', this, null)
+        this.redirectUrl = '/'
     }
 
 }

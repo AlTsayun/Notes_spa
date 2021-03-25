@@ -9,17 +9,17 @@ module.exports = class NotesHandler{
         note.id = this.freeIdentifier.toString()
         this.idToNote.set(note.id, note)
         this.freeIdentifier++
-        console.log('NotesHandler added note' + note.toString())
-        console.log(this.idToNote)
+        console.log('NotesHandler added note', note)
         return note
     }
 
     removeNote(noteId){
-        // console.log(this.idToNote.delete(noteId))
+        console.log('NotesHandler removed note', noteId)
         return this.idToNote.delete(noteId)
     }
 
     updateNote(note){
+        console.log('NotesHandler updated note', note)
         if (this.idToNote.delete(note.id)){
             this.idToNote.set(note.id, note)
             return true
@@ -27,8 +27,7 @@ module.exports = class NotesHandler{
         return false
     }
 
-    getNote(noteId){
-        console.log(this.idToNote)
+    getNoteById(noteId){
         return this.idToNote.get(noteId)
     }
     getAllNotes(){

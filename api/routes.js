@@ -16,11 +16,11 @@ routes.use(multer({dest: path.resolve("uploads")}).any());
 
 routes.get('/notes', (req, res) => {
     let notes = Array.from(notesHandler.getAllNotes())
-    if (req.query.completionDateOrder === "newest"){
-        notes.sort((note1, note2) => -note1.completionDate.localeCompare(note2.completionDate))
-    } else if (req.query.completionDateOrder === "oldest"){
-        notes.sort((note1, note2) => note1.completionDate.localeCompare(note2.completionDate))
-    }
+    // if (req.query.completionDateOrder === "newest"){
+    //     notes.sort((note1, note2) => -note1.completionDate.localeCompare(note2.completionDate))
+    // } else if (req.query.completionDateOrder === "oldest"){
+    //     notes.sort((note1, note2) => note1.completionDate.localeCompare(note2.completionDate))
+    // }
 
     if (req.query.statusFilter === "to do"){
         notes = notes.filter((note) => note.status === "to do")
@@ -38,6 +38,8 @@ routes.get('/about', (req, res) => {
 })
 
 routes.post('/notes', (req, res) =>{
+
+    console.log('post body: ', req.body)
 
     const o_date = new Intl.DateTimeFormat;
     const f_date = (m_ca, m_it) => Object({...m_ca, [m_it.type]: m_it.value});
@@ -57,7 +59,7 @@ routes.post('/notes', (req, res) =>{
 })
 
 routes.get('/notes/:noteId', (req, res) =>{
-    let note = notesHandler.getNote(req.params.noteId)
+    let note = notesHandler.getNoteById(req.params.noteId)
     if (note !== undefined){
         res.status(200).json(note)
     } else {
@@ -67,11 +69,12 @@ routes.get('/notes/:noteId', (req, res) =>{
 
 routes.put('/notes/:noteId', urlEncodedParser, (req, res) =>{
 
-    let oldNote = notesHandler.getNote(req.params.noteId)
+    let oldNote = notesHandler.getNoteById(req.params.noteId)
     let newFiles = oldNote.files
     for (const file in newFiles) {
         newFiles.push(file)
     }
+    console.log('Put body', req.body)
     let note = {
         id: req.params.noteId,
         title: req.body.title,
